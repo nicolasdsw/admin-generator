@@ -1,0 +1,77 @@
+package {app_pkg}.controller;
+
+import java.util.List;
+import java.util.stream.Collectors;
+
+import javax.validation.Valid;
+
+import org.springframework.data.domain.Page;
+import org.springframework.http.MediaType;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
+
+import {app_pkg}.bases.PageReq;
+import {app_pkg}.bases.PageRes;
+import {app_pkg}.dto.req.{model_name}ReqDTO;
+import {app_pkg}.dto.res.{model_name}ResDTO;
+import {app_pkg}.model.{model_name};
+import {app_pkg}.service.{model_name}Service;
+import lombok.AllArgsConstructor;
+
+@AllArgsConstructor
+@RestController
+@RequestMapping(value = "{endpoint}", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+public class {model_name}Controller {
+
+	private final {model_name}Service service;
+
+	@GetMapping
+	public PageRes<{model_name}ResDTO> index(PageReq query) {
+		Page<{model_name}> page = this.service.findAll(query);
+		return new PageRes<{model_name}ResDTO>(
+				page.getContent().stream().map({model_name}ResDTO::of).collect(Collectors.toList()),
+				page.getTotalElements(), page.getTotalPages());
+	}
+
+	@PostMapping
+	public {model_name}ResDTO store(@Valid @RequestBody {model_name}ReqDTO dto) {
+		return {model_name}ResDTO.of(this.service.save(dto.toEntity(new {model_name}())));
+	}
+
+	@GetMapping("/{id}")
+	public {model_name}ResDTO show(@PathVariable("id") {id_type} id) {
+		return {model_name}ResDTO.of(this.service.findById(id));
+	}
+
+	@PutMapping("/{id}")
+	public {model_name}ResDTO update(@PathVariable("id") {id_type} id, @Valid @RequestBody {model_name}ReqDTO dto) {
+		return {model_name}ResDTO.of(this.service.save(dto.toEntity(this.service.findById(id))));
+	}
+
+	@DeleteMapping("/{id}")
+	public void logicalExclusion(@PathVariable("id") {id_type} id) {
+		this.service.logicalExclusion(id);
+	}
+
+	@GetMapping("/many")
+	public List<{model_name}ResDTO> showMany(@RequestParam {id_type}[] ids) {
+		return this.service.findByIds(ids).stream().map({model_name}ResDTO::of).collect(Collectors.toList());
+	}
+	
+	@PutMapping("/restore/{id}")
+	public void restoreDeleted(@PathVariable("id") {id_type} id) {
+		this.service.restoreDeleted(id);
+	}
+
+	@DeleteMapping("/destroy/{id}")
+	public void permanentDestroy(@PathVariable("id") {id_type} id) {
+		this.service.permanentDestroy(id);
+	}
+}
