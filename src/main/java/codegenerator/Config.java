@@ -7,7 +7,7 @@ public class Config {
 	// Can change
 	public static final String SRC_FOLDER = "src/main/java/";
 	public static final String SRC_TEST_FOLDER = "src/test/java/";
-	public static final String APP_PKG = "br.com.ifrs.ciclope";
+	public static final String APP_PKG = "com.company";
 	public static final String BASE_REPOSITORY_FULLNAME = APP_PKG + ".bases.BaseRepository";
 	public static final String BASE_REPOSITORY_NAME = "BaseRepository";
 	public static final String ENDPOINTS_PREFIX = "/api/";

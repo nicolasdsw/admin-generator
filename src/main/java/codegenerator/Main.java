@@ -17,7 +17,7 @@ import java.util.stream.Collectors;
 public class Main {
 
 	public static void main(String[] args) throws Exception {
-		List<Class<?>> modelClasses = Utils.getExternalClasses("//Users//wojcichoski//git//ciclope//", Config.APP_PKG + ".model");
+		List<Class<?>> modelClasses = Utils.getExternalClasses("C://Users//nicolas.souza//git//admin-generator//", Config.APP_PKG + ".model");
 		Utils.createPkg(Config.REPOSITORY_DIR);
 		Utils.createPkg(Config.SERVICE_DIR);
 		Utils.createPkg(Config.DTO_REQ_DIR);
