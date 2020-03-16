@@ -24,6 +24,7 @@ public class Main {
 		Utils.createPkg(Config.DTO_RES_DIR);
 		Utils.createPkg(Config.CONTROLLER_DIR);
 		Utils.createPkg(Config.SERVICE_TEST_DIR);
+		
 		for (Class<?> clazz : modelClasses) {
 			if (!clazz.getName().endsWith("Builder")) {
 				buildRepository(clazz);
