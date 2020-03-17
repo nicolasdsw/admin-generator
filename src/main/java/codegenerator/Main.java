@@ -17,7 +17,8 @@ import java.util.stream.Collectors;
 public class Main {
 
 	public static void main(String[] args) throws Exception {
-		List<Class<?>> modelClasses = Utils.getExternalClasses("C://Users//nicolas.souza//git//admin-generator//", Config.APP_PKG + ".model");
+		List<Class<?>> modelClasses = Utils.getExternalClasses("C://Users//nicolas.souza//git//admin-generator//",
+				Config.APP_PKG + ".model");
 		Utils.createPkg(Config.REPOSITORY_DIR);
 		Utils.createPkg(Config.SERVICE_DIR);
 		Utils.createPkg(Config.DTO_REQ_DIR);
@@ -40,7 +41,7 @@ public class Main {
 		String modelName = clazz.getSimpleName();
 		String idType = clazz.getDeclaredField("id").getType().getSimpleName();
 		try {
-			String dir = "src/main/java/codegenerator/template_repository.txt".replace("/", File.separator);
+			String dir = Config.TEMPLATES + "template_repository.txt".replace("/", File.separator);
 			String template = Files.lines(Paths.get(dir)).collect(Collectors.joining(System.lineSeparator()));
 			template += System.lineSeparator();
 			template = template.replace("{app_pkg}", Config.APP_PKG)
@@ -120,7 +121,7 @@ public class Main {
 			imports = System.lineSeparator() + imports;
 		}
 		try {
-			String dir = "src/main/java/codegenerator/template_dto_request.txt".replace("/", File.separator);
+			String dir = Config.TEMPLATES + "template_dto_request.txt".replace("/", File.separator);
 			String template = Files.lines(Paths.get(dir)).collect(Collectors.joining(System.lineSeparator()));
 			template += System.lineSeparator();
 			template = template.replace("{app_pkg}", Config.APP_PKG).replace("{model_name}", modelName)
@@ -212,7 +213,7 @@ public class Main {
 			imports = System.lineSeparator() + imports;
 		}
 		try {
-			String dir = "src/main/java/codegenerator/template_dto_response.txt".replace("/", File.separator);
+			String dir = Config.TEMPLATES + "template_dto_response.txt".replace("/", File.separator);
 			String template = Files.lines(Paths.get(dir)).collect(Collectors.joining(System.lineSeparator()));
 			template += System.lineSeparator();
 			template = template.replace("{app_pkg}", Config.APP_PKG).replace("{model_name}", modelName)
@@ -236,7 +237,7 @@ public class Main {
 			}
 		}
 		try {
-			String dir = "src/main/java/codegenerator/template_service.txt".replace("/", File.separator);
+			String dir = Config.TEMPLATES + "template_service.txt".replace("/", File.separator);
 			String template = Files.lines(Paths.get(dir)).collect(Collectors.joining(System.lineSeparator()))
 					+ System.lineSeparator();
 			template = template.replace("{app_pkg}", Config.APP_PKG).replace("{model_name}", modelName)
@@ -253,7 +254,7 @@ public class Main {
 		String modelName = clazz.getSimpleName();
 		String idType = clazz.getDeclaredField("id").getType().getSimpleName();
 		try {
-			String dir = "src/main/java/codegenerator/template_controller.txt".replace("/", File.separator);
+			String dir = Config.TEMPLATES + "template_controller.txt".replace("/", File.separator);
 			String template = Files.lines(Paths.get(dir)).collect(Collectors.joining(System.lineSeparator()))
 					+ System.lineSeparator();
 			template = template.replace("{app_pkg}", Config.APP_PKG).replace("{model_name}", modelName)
@@ -270,12 +271,13 @@ public class Main {
 		String modelName = clazz.getSimpleName();
 		String idType = clazz.getDeclaredField("id").getType().getSimpleName();
 		try {
-			String dir = "src/main/java/codegenerator/template_test_service.txt".replace("/", File.separator);
+			String dir = Config.TEMPLATES + "template_test_service.txt".replace("/", File.separator);
 			String template = Files.lines(Paths.get(dir)).collect(Collectors.joining(System.lineSeparator()))
 					+ System.lineSeparator();
 			template = template.replace("{app_pkg}", Config.APP_PKG).replace("{model_name}", modelName)
 					.replace("{id_type}", idType);
-			String fileName = String.format("%s%s%sServiceTest.java", Config.SERVICE_TEST_DIR, File.separator, modelName);
+			String fileName = String.format("%s%s%sServiceTest.java", Config.SERVICE_TEST_DIR, File.separator,
+					modelName);
 			Path newFile = Files.createFile(Paths.get(fileName));
 			Files.write(newFile, template.getBytes(), StandardOpenOption.APPEND);
 		} catch (IOException e) {

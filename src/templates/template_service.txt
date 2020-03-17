@@ -36,7 +36,7 @@ public class {model_name}Service {
 	}
 
 	public void logicalExclusion({id_type} id) {
-		if (!this.repository.findById(id).isPresent())
+		if (this.repository.findByIdAndNotDeleted(id).isEmpty())
 			throw new ServiceException(Messages.record_not_found);
 		this.repository.softDelete(id);
 	}
@@ -50,13 +50,13 @@ public class {model_name}Service {
 	}
 
 	public void restoreDeleted({id_type} id) {
-		if (!this.repository.findDeletedById(id).isPresent())
+		if (this.repository.findDeletedById(id).isEmpty())
 			throw new ServiceException(Messages.record_not_found_at_recycle_bin);
 		this.repository.restoreDeleted(id);
 	}
 
 	public void permanentDestroy({id_type} id) {
-		if (!this.repository.findDeletedById(id).isPresent())
+		if (this.repository.findDeletedById(id).isEmpty())
 			throw new ServiceException(Messages.record_not_found_at_recycle_bin);
 		this.repository.deleteById(id);
 	}

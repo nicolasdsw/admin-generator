@@ -13,6 +13,7 @@ public class Config {
 	public static final String ENDPOINTS_PREFIX = "/api/";
 
 	// Can NOT change without customize templates
+	public static final String TEMPLATES = "src/templates/";
 	public static final String SRC_DIR = SRC_FOLDER.replace("/", File.separator);
 	public static final String REPOSITORY_DIR = String.format("%s%s.repository", SRC_DIR, APP_PKG).replace(".", File.separator);
 	public static final String SERVICE_DIR = String.format("%s%s.service", SRC_DIR, APP_PKG).replace(".", File.separator);
